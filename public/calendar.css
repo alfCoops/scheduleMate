@@ -1,0 +1,63 @@
+/* CSS file with comments added for better understanding */
+
+/* Declare custom CSS variables for FullCalendar element styles */
+:root {
+--fc-border-color: transparent; /* FullCalendar border color */
+--fc-today-bg-color: #ffffff4b; /* FullCalendar background color for today */
+--fc-button-bg-color: #50442c00; /* FullCalendar button background color */
+--fc-button-border-color: transparent; /* FullCalendar button border color */
+--fc-button-hover-bg-color: #1e2b3700; /*FullCalendar button hover background color */
+--fc-button-hover-border-color: transparent; /* FullCalendar button hover border color */
+--fc-button-active-bg-color: white; /* FullCalendar button active background color */
+--fc-button-active-border-color: white; /* FullCalendar button active border color */
+--fc-button-text-color: #478ac9; /* FullCalendar button text color */
+--fc-highlight-color: #007bff; /* FullCalendar highlight color */
+}
+
+/* Set the background color for every 1st and 2nd row in a table */
+tr:nth-child(4n+1),
+tr:nth-child(4n+2) {
+background-color: transparent; /* light blue */
+}
+
+/* Set the border color for FullCalendar timegrid slot lanes */
+.fc .fc-timegrid-slot-lane {
+border-color: white;
+}
+
+/* Set the background color for every 3rd and 4th row in a table */
+tr:nth-child(4n+3),
+tr:nth-child(4n+4) {
+background-color: #478ac975; /* white */
+}
+
+/* Style table elements */
+table {
+border-color: white; /* Table border color */
+border-spacing: 0px; /* Remove spacing between table borders */
+}
+
+/* Set the background color for the first cell in each table row */
+table td:first-child {
+background-color: transparent;
+}
+
+/* Add a border bottom to the table header */
+thead {
+border-bottom: 1px solid black;
+}
+
+/* Style FullCalendar toolbar title */
+.fc .fc-toolbar-title {
+color: #478ac9; /* Toolbar title text color */
+}
+
+/* Style FullCalendar column header cell cushion */
+.fc .fc-col-header-cell-cushion {
+color: #478ac9; /* Column header cell cushion text color */
+}
+
+/* Style FullCalendar timegrid slot label cushion */
+.fc .fc-timegrid-slot-label-cushion {
+color: #478ac9; /* Timegrid slot label cushion text color */
+}

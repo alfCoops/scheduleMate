@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <title>ScheduleMate</title>
+    <script src="newEvent.js"></script>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <label class="formTitle">New Event</label>
+    <form id=newEventForm action="/createEvent" method="POST">
+        <label for="">Subject</label>
+        <select name="eventSubject" id="eventSubDropDown"> 
+            <%for(var i=0; i<subData.length; i++){%>
+                <option value="<%=subData[i].id%>"><%=subData[i].name%></option>
+            <%}%>
+        </select>
+        <label for="">Date</label>
+        <input type="date" name="date" required><br>
+        <label for="">Type </label>
+        <select name="eventType" id="eventTypeDropDown"> 
+            <option value="lecture">Lecture</option>
+            <option value="seminar">Seminar</option>
+            <option value="meeting">Meeting</option>
+        </select><a href="#" id="addEventTypeLink">+</a><br>
+        <label for="">Location</label>
+        <input type="text" name="location" required><br>
+        <div class="times">
+            <div id="startTime">
+            <label for="">Start Time</label>
+            <input type="time" name="startTime" required>
+            </div>
+            <div class="endTime">
+            <label for="">End Time</label>
+            <input type="time" name="endTime" required><br>
+            </div>
+        </div>
+        <div class="repeatDiv">
+            <label for="">Repeats</label>
+            <input type="checkbox" name="repeatCheckbox" id="repeatCheckbox"><br>
+        </div>
+        <div id="daysOfWeek" style="display: none;">
+            <input type="checkbox" name="M">M
+            <input type="checkbox" name="Tu">T
+            <input type="checkbox" name="W">W
+            <input type="checkbox" name="Th">T
+            <input type="checkbox" name="F">F
+            <input type="checkbox" name="Sa">S
+            <input type="checkbox" name="Su">S<br>
+            <label for="">Repeat Until</label>
+            <input type="date" name="repeatUntilDate" id="repeatUntilDate"><br>
+        </div>
+        <button type="submit" class="addBtn">Create Event</button>
+        <a href="/dashboard" class="cancelBtn">X</a>
+    </form>
+    
+</body>
+
+</html>

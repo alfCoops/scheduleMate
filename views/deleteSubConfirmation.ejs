@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>ScheduleMate</title>
+        <h2>Are you sure you want to delete this subject?</h2>
+        <link rel="stylesheet" href="form.css">
+    </head>
+    <body>
+        <form action="/deleteSubject:<%=id%>" class="delForm" method="POST">
+            <button type="submit" class="delFormBtn">Yes</button>
+            <a href="/dashboard" class="delFormBtn">No</a>
+        </form>
+            
+    </body>
+</html>

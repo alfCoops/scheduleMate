@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <head>
+        <title>ScheduleMate</title>
+        <script src='/newGoal.js'></script>
+        <link rel="stylesheet" href="form.css">
+        <script src="https://kit.fontawesome.com/e8b074ea0f.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <label class="formTitle">New Goal</label>
+        <form id="newGoalForm"  id="newGoalForm" action="/createGoal" method="POST" enctype="multipart/form-data">
+            <label for="">Name</label>
+            <input type="text" name="goalName"><br>
+            <label for="">Subject</label>
+            <select name="eventSubject" id="eventSubDropDown"> 
+                <%for(var i=0; i<subData.length; i++){%>
+                    <option value="<%=subData[i].id%>"><%=subData[i].name%></option>
+                <%}%>
+                    <option value="none">none </option>
+            </select><br>
+            <label for="">Due Date</label>
+            <input type="date" name="goalDueDate"><br>
+            <label for="goalPriority">Priority</label>
+            <select name="goalPriority" id="goalPriority">
+                <option value="1">Critical/Urgent</option>
+                <option value="2">High priority</option>
+                <option value="3">Medium priority</option>
+                <option value="4">Low priority</option>
+                <option value="5">Optional/Long-term</option>
+            </select><br>
+            <label title="Enter the tasks needed to complete the goal">Tasks</label>
+            <div id="newTaskInp">
+                <input type="text" id="taskInput" placeholder="Enter task">
+                <span class="addBtn" id="addTask">Add</span>
+            </div>
+            <ul id="myUL">
+            </ul>
+            <button type="submit" class="addBtn">Save</button>
+            <a href="/dashboard" class="cancelBtn">X</a>
+        </form>
+        
+    </body>
+</html>

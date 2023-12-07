@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <script src="newEvent.js"></script>
+    <title>ScheduleMate</title>
+    <link rel="stylesheet" href="form.css">
+    <script src="https://kit.fontawesome.com/e8b074ea0f.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <h1>Edit Event</h1>
+    <form id=editEventForm action="/editEvent/insert" method="POST">
+        <label for="">Subject</label>
+        <select name="eventSubject" id="eventSubDropDown"> 
+            <%for(var i=0; i<data.subData.length; i++){%>
+                <option value="<%=data.subData[i].id%>"><%=data.subData[i].name%></option>
+            <%}%>
+        </select><br>
+        <label for="">Date</label>
+        <input type="date" value="<%=data.event.date%>" name="date" required><br>
+        <label for="">Type</label>
+        <select name="eventType" id="eventTypeDropDown"> 
+            <option value="lecture">Lecture</option>
+            <option value="seminar">Seminar</option>
+            <option value="meeting">Meeting</option>
+        </select><a href="#" id="addEventTypeLink">+</a><br>
+        <label for="">Location</label>
+        <input type="text" name="location" value="<%=data.event.location%>"><br>
+        <div class="times">
+            <div id="startTime">
+                <label for="">Start Time</label>
+                <input type="time" name="startTime" value=<%=data.event.start%> required>
+            </div>
+            <div id="endTime">
+                <label for="">End Time</label>
+                <input type="time" name="endTime" value=<%=data.event.end%> required><br>
+            </div>
+        </div>
+        <div class="repeatDiv">
+        <label for="">Repeats</label>
+        <input type="checkbox" name="repeatCheckbox" id="repeatCheckbox"><br>
+        </div>
+        <div id="daysOfWeek" style="display: none;">
+            <input type="checkbox" name="M">M
+            <input type="checkbox" name="Tu">T
+            <input type="checkbox" name="W">W
+            <input type="checkbox" name="Th">T
+            <input type="checkbox" name="F">F
+            <input type="checkbox" name="Sa">S
+            <input type="checkbox" name="Su">S<br>
+            <label for="">Repeat Until</label>
+            <input type="date" name="repeatUntilDate" id="repeatUntilDate"><br>
+        </div>
+        <button type="submit" class="addBtn">Save</button>
+        <a href="/dashboard" class="cancelBtn">X</a>
+    </form>
+            <a href="/delEventCon:<%=data.event.id%>" class="delBtn"><i class="fas fa-trash fa-lg"></i></a>
+
+</body>
+
+</html>

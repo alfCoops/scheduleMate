@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ScheduleMate</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="form.css">
+</head>
+<body>
+  <label class="formTitle">New Subject</label>
+    <form action="/addSubject" method="POST">
+      <label for="new-subject-name">Name:</label>
+      <input type="text" id="new-subject-name" name="newEventSub">
+      <br>
+      <label for="new-subject-hours" title="Enter number of required hours">Hours:</label>
+      <input type="number" id="new-subject-hours" name="hours">
+      <br>
+      <label for="color" title="Select a colour for the subject, this will make each subject more clear on your schedule">Color:</label>
+      <input type="color" name="color" required>
+      <div class="button-container">
+        <button type="submit" class="addBtn">Add</button>
+        <a href="/dashboard" class="cancelBtn">X</a>
+      </form>
+  </div>
+</body>
+</html>

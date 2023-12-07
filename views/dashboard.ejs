@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>ScheduleMate</title>
+    <meta charset='utf-8' />
+    
+    <script src="https://kit.fontawesome.com/e8b074ea0f.js" crossorigin="anonymous"></script>
+    <script type="module" src="calendar.js"></script>
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script> 
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.4/index.global.min.js'></script>
+    <link rel="stylesheet" href="/dashboard.css" type="text/css">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <link rel="stylesheet" href="/calendar.css" type="text/css">
+  </head>
+        <% var events = data.eventData %>
+        <% var tasks = data.taskData %>
+        <% var tasksession = data.taskSessionData%>
+        <% var goals = data.goalData%>
+        <% var messages = data.messageData%>
+        <% var subjects = data.subjectData%>
+    <script>
+      tasksArr = <%-JSON.stringify(tasks)%>
+      eventsArr = <%-JSON.stringify(events)%>;
+      taskSesArr = <%-JSON.stringify(tasksession)%>;
+      goalArr = <%-JSON.stringify(goals)%>;
+      mesArr= <%-JSON.stringify(messages)%>;
+      subArr = <%-JSON.stringify(subjects)%>;
+    </script>
+  <body>
+    <section id="container">
+      <div id="sidebar">
+        <div id="welcome-section">
+          <h2>Welcome <%=data.nameData%>!</h2>          
+          <a href="/logout" id="logoutBtn"><i class="fa-solid fa-sign-out"></i></a>
+        </div>
+
+        <ul>
+          <li><a href="../createEvent"><i class="fa-solid fa-calendar-days"></i>Add Event</a></li>
+          <div id="notifications-btn">
+            <i class="fa-solid fa-bell fa-2x"></i>
+            <span class="badge badge-danger">3</span>
+          </div>
+          <li><a id="addTaskSessionBtn"><i class="fa-solid fa-tasks"></i>Add Study Session</a></li>
+        </ul>
+        <div class="popup-container" id="video-popup" style="display:none">
+          <div class="popup-content">            
+            <label >Select which times directly on to the calendar, then use the dropdown to select the task </label>
+            <img src="taskSession Demo.gif" alt="Video" class="popup-video" autoplay loop />
+            <button class="close-popup-btn" id="close-video-popup">&times;</button>
+          </div>
+        </div>
+        <div id="goals">
+          <div class="title-container">
+              <h3><i class="fa-solid fa-bullseye-arrow"></i>Current Goals</h3>
+              <a href="../createGoal"><i class="fas fa-plus fa-lg"></i></a>
+          </div>
+          <% for (var i = 0; i < data.goalData.length; i++) { %>
+            <div class="goal" id="<%= data.goalData[i].id %>">
+              <div class="goal-content">
+                <h4>
+                  <%= data.goalData[i].name %>
+                  <a href="/editGoal:<%= data.goalData[i].id %>" class="edit-goal-button"><i class="fas fa-edit"></i></a>
+                </h4>
+                <% for (var j = 0; j < data.taskData.length; j++) { %>
+                  <% if (data.taskData[j].goal == data.goalData[i].id) { %>
+                    <input type="checkbox" name="<%= data.taskData[j].name %>" class="checkbox__input" value="<%= data.taskData[j].id %>" <% if (data.taskData[j].completed == 1) { %>checked<% } %>>
+                    <%= data.taskData[j].name %><br>
+                  <% } %>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+        <div id="Subjects">
+          <div class="title-container">
+              <h3>Subjects</h3>
+              <a href="/getSubject" id="new-subject-btn"><i class="fas fa-plus fa-lg"></i></a>
+          </div>
+          
+          <% for (let i = 0; i < data.subjectData.length; i++) { console.log(data.subjectData)%>
+              <div class="subject-div">
+                <span class="subject-name" data-id="<%= data.subjectData[i].id %>"><%= data.subjectData[i].name %></span>
+                <a class="edit-course-btn" href="/editSubject:<%= data.subjectData[i].id %>" data-id="<%= data.subjectData[i].id %>"><i class="fas fa-edit"></i></a>
+                <a href="/deleteSubject:<%= data.subjectData[i].id %>"><i class="fas fa-trash"></i></a>
+                <br>
+                <span class="subject-hours">
+                  <% if(data.subjectData[i].accHours){ %>
+                    Hours Required: <%= data.subjectData[i].hours %> - Hours Scheduled: <%= data.subjectData[i].accHours %>
+                  <% }else{ %>
+                    Hours Required: <%= data.subjectData[i].hours %>
+                  <% } %>
+                </span>
+                <div class="progress-bar-container" id="progress-bar-container-<%= data.subjectData[i].id %>">
+                  <div class="progress-bar" id="progress-bar-<%= data.subjectData[i].id %>"></div>
+              </div>
+            </div>
+          <% } %>
+      </div>
+      </div>
+      <div id="notifications-popup" class="popup-container" style="display: none;">
+        <div class="popup-content">
+          <h3>Notifications</h3>
+          <button id="close-popup-btn" class="close-popup-btn">X</button>
+          <ul id="notifications-list"></ul>
+          <div class="search-container">
+            <input type="text" name="issueInp" id="issueInp">
+            <button type="submit" id="getSolutionBtn"><i class="fa-sharp fa-solid fa-arrow-right"></i></button>
+          </div>
+          <div id="IssueSolution"></div>
+        </div>
+      </div>
+      <div id="calendarSection">        
+        <div id='calendar'></div>
+      </div>
+      <div id="popup" style="display:none">
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            
+            <select id="goaldropdown">
+              <option value="" disabled selected>Select a goal</option>
+              <%for(var i=0; i<data.goalData.length; i++){%>
+                <option value="<%=data.goalData[i].id%>"><%=data.goalData[i].name%></option> 
+              <%}%>
+              <option value="None">None</option>
+            </select>
+            <select id="task-selector">
+              <option value="" disabled selected>Select a task</option>
+              <%for(var j=0; j<data.taskData.length; j++){%>
+                <%if(data.taskData[j].goal == data.goalData[0].id){%>
+                  <option value=<%=data.taskData[j].id%>><%=data.taskData[j].name%></option>
+                <%}%>
+              <%}%>
+              <option value="selfStudy">Self Study</option>
+            </select>
+            <br>
+            <button id="submit-button" class="sessionBtn"><i class="fa-regular fa-circle-check fa-xl"></i></i></button>
+          </div>
+          <a href="/dashboard" id="closePopup" style="align-self: flex-start;">X</a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

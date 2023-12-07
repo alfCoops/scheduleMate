@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ScheduleMate</title>
+    <link rel="stylesheet" href="form.css">
+    
+  </head>
+  <body>
+    <h1>Welcome to ScheduleMate!</h1>
+    <div class="forms-container">
+      <form action="/login" method="post" class="login-form">
+        <h2>Returning Student</h2>
+        <div>
+          <label>Email:</label>
+          <input type="text" name="email" required>
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" name="password" required>
+        </div>
+        <div>
+          <input type="submit" value="Login">
+        </div>
+      </form>
+      <form action="/register" method="post" class="register-form">
+        <h2>New to ScheduleMate</h2>
+        <div>
+          <label>Name:</label>
+          <input type="text" name="name" required>
+        </div>
+        <div>
+          <label>Email:</label>
+          <input type="text" name="email" required>
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" name="password" required>
+        </div>
+        <div>
+          <label>Confirm Password:</label>
+          <input type="password" name="password_confirm" required>
+        </div>
+        <div>
+          <input type="submit" value="Create Account">
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
